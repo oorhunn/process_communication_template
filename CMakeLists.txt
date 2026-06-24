@@ -17,8 +17,12 @@ set(UTILITY_PATH "${CMAKE_CURRENT_LIST_DIR}/utility")
 
 
 add_executable(health_check_template main.cpp)
+target_compile_features(
+        ${PROJECT_NAME}
+        PRIVATE
+        cxx_std_23
 
-
+)
 add_subdirectory(examples)
 
 
