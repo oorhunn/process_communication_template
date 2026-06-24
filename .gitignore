@@ -1,0 +1,6 @@
+.idea/
+.claude/
+.cache/
+cmake-build-*/
+__pycache__/
+build*/
