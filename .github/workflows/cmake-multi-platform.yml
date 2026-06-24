@@ -19,18 +19,21 @@ jobs:
             c_compiler: gcc-14
             cpp_compiler: g++-14
             extra_cxx_flags: ""
+            extra_linker_flags: ""
 
           - os: ubuntu-latest
             build_type: Release
             c_compiler: clang-18
             cpp_compiler: clang++-18
-            extra_cxx_flags: "-stdlib=libstdc++ --gcc-toolchain=/usr"
+            extra_cxx_flags: "-stdlib=libc++"
+            extra_linker_flags: "-stdlib=libc++"
 
           - os: windows-latest
             build_type: Release
             c_compiler: cl
             cpp_compiler: cl
             extra_cxx_flags: ""
+            extra_linker_flags: ""
 
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +42,13 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtest-dev gcc-14 g++-14 clang-18
+          sudo apt-get install -y \
+            libgtest-dev \
+            gcc-14 \
+            g++-14 \
+            clang-18 \
+            libc++-18-dev \
+            libc++abi-18-dev
 
       - name: Install GTest on Windows
         if: runner.os == 'Windows'
@@ -55,19 +64,22 @@ jobs:
       - name: Configure CMake on Ubuntu
         if: runner.os == 'Linux'
         run: >
-          cmake -B ${{ steps.strings.outputs.build-output-dir }}
+          cmake
+          -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
           -DCMAKE_CXX_STANDARD=23
           -DCMAKE_CXX_STANDARD_REQUIRED=ON
           -DCMAKE_CXX_FLAGS="${{ matrix.extra_cxx_flags }}"
+          -DCMAKE_EXE_LINKER_FLAGS="${{ matrix.extra_linker_flags }}"
           -S ${{ github.workspace }}
 
       - name: Configure CMake on Windows
         if: runner.os == 'Windows'
         run: >
-          cmake -B ${{ steps.strings.outputs.build-output-dir }}
+          cmake
+          -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
@@ -78,11 +90,13 @@ jobs:
 
       - name: Build
         run: >
-          cmake --build ${{ steps.strings.outputs.build-output-dir }}
+          cmake --build
+          ${{ steps.strings.outputs.build-output-dir }}
           --config ${{ matrix.build_type }}
 
       - name: Test
         working-directory: ${{ steps.strings.outputs.build-output-dir }}
         run: >
-          ctest --build-config ${{ matrix.build_type }}
+          ctest
+          --build-config ${{ matrix.build_type }}
           --output-on-failure
