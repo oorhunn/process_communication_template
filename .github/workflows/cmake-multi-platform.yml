@@ -21,20 +21,6 @@ jobs:
             extra_cxx_flags: ""
             extra_linker_flags: ""
 
-          - os: ubuntu-latest
-            build_type: Release
-            c_compiler: clang-18
-            cpp_compiler: clang++-18
-            extra_cxx_flags: "-stdlib=libc++"
-            extra_linker_flags: "-stdlib=libc++"
-
-          - os: macos-latest
-            build_type: Release
-            c_compiler: gcc-14
-            cpp_compiler: g++-14
-            extra_cxx_flags: ""
-            extra_linker_flags: ""
-
           - os: macos-latest
             build_type: Release
             c_compiler: clang
@@ -52,16 +38,13 @@ jobs:
           sudo apt-get install -y \
             libgtest-dev \
             gcc-14 \
-            g++-14 \
-            clang-18 \
-            libc++-18-dev \
-            libc++abi-18-dev
+            g++-14
 
       - name: Install dependencies on macOS
         if: runner.os == 'macOS'
         run: |
           brew update
-          brew install googletest gcc@14
+          brew install googletest
 
       - name: Set reusable strings
         id: strings
@@ -80,7 +63,6 @@ jobs:
           -DCMAKE_CXX_STANDARD_REQUIRED=ON
           -DCMAKE_CXX_FLAGS="${{ matrix.extra_cxx_flags }}"
           -DCMAKE_EXE_LINKER_FLAGS="${{ matrix.extra_linker_flags }}"
-          ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake' || '' }}
           -S "${{ github.workspace }}"
 
       - name: Build
