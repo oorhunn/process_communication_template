@@ -16,13 +16,9 @@ set(COMMON_PATH "${ROOT_PATH}/common")
 set(UTILITY_PATH "${CMAKE_CURRENT_LIST_DIR}/utility")
 
 
-add_executable(health_check_template main.cpp)
-target_compile_features(
-        ${PROJECT_NAME}
-        PRIVATE
-        cxx_std_23
+list(APPEND CMAKE_MODULE_PATH "${ROOT_PATH}")
+include(process_communication/process_communication)
 
-)
 add_subdirectory(examples)
 
 

@@ -16,7 +16,7 @@
 #include <thread>
 #include <vector>
 
-#include "common/process_communications/TCPTransport.hpp"
+#include "process_communications/TCPTransport.hpp"
 
 namespace {
 
@@ -28,7 +28,7 @@ namespace {
 
     // Pump the transport for a short while so non-blocking sends actually flush
     // (publish() queues the frame; poll() drives the bytes out of the socket).
-    void pump(common::process_communications::tcp_transport::TcpTransport &transport,
+    void pump(lib::process_communications::tcp_transport::TcpTransport &transport,
               std::chrono::milliseconds duration) {
         const auto deadline = std::chrono::steady_clock::now() + duration;
         while (std::chrono::steady_clock::now() < deadline) {
@@ -40,7 +40,7 @@ namespace {
 } // namespace
 
 int main(int argc, char **argv) {
-    using common::process_communications::tcp_transport::TcpTransport;
+    using lib::process_communications::tcp_transport::TcpTransport;
 
     const std::uint16_t port =
             (argc > 1) ? static_cast<std::uint16_t>(std::stoi(argv[1])) : 9100U;

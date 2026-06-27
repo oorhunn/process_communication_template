@@ -30,7 +30,7 @@
 #include "ErrorTypes.hpp"
 
 
-namespace common::process_communications {
+namespace lib::process_communications {
 
     template<typename T>
     concept Transport = requires(
@@ -45,9 +45,9 @@ namespace common::process_communications {
         -> std::same_as<std::expected<void, error_types::TransportError>>;
     };
 
-} // namespace common::process_communications
+} // namespace lib::process_communications
 
-namespace common::process_communications::tcp_transport {
+namespace lib::process_communications::tcp_transport {
 
     using TransportError = error_types::TransportError;
 
@@ -472,4 +472,4 @@ namespace common::process_communications::tcp_transport {
 
     static_assert(Transport<TcpTransport>);
 
-} // namespace common::process_communications::tcp_transport
+} // namespace lib::process_communications::tcp_transport

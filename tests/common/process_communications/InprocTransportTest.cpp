@@ -1,5 +1,5 @@
 //
-// Tests for common/process_communications/InprocTransport.hpp
+// Tests for lib/process_communications/InprocTransport.hpp
 //
 
 #include <cstddef>
@@ -10,14 +10,14 @@
 
 #include <gtest/gtest.h>
 
-#include "common/process_communications/ErrorTypes.hpp"
-#include "common/process_communications/InprocTransport.hpp"
+#include "process_communications/ErrorTypes.hpp"
+#include "process_communications/InprocTransport.hpp"
 
 namespace {
 
-    using common::process_communications::error_types::TransportError;
-    using common::process_communications::inproc_transport::InprocTransport;
-    using common::process_communications::inproc_transport::InprocTransportConfig;
+    using lib::process_communications::error_types::TransportError;
+    using lib::process_communications::inproc_transport::InprocTransport;
+    using lib::process_communications::inproc_transport::InprocTransportConfig;
 
     auto make_bytes(std::string_view text) -> std::vector<std::byte> {
         std::vector<std::byte> out(text.size());

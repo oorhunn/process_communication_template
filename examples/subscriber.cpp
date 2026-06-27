@@ -14,7 +14,7 @@
 #include <string>
 #include <thread>
 
-#include "common/process_communications/TCPTransport.hpp"
+#include "process_communications/TCPTransport.hpp"
 
 namespace {
 
@@ -27,7 +27,7 @@ namespace {
 } // namespace
 
 int main(int argc, char **argv) {
-    using common::process_communications::tcp_transport::TcpTransport;
+    using lib::process_communications::tcp_transport::TcpTransport;
 
     const std::uint16_t port =
             (argc > 1) ? static_cast<std::uint16_t>(std::stoi(argv[1])) : 9100U;

@@ -1,5 +1,5 @@
 //
-// Tests for common/process_communications/TCPTransport.hpp
+// Tests for lib/process_communications/TCPTransport.hpp
 //
 
 #include <fcntl.h>
@@ -17,14 +17,14 @@
 
 #include <gtest/gtest.h>
 
-#include "common/process_communications/ErrorTypes.hpp"
-#include "common/process_communications/TCPTransport.hpp"
+#include "process_communications/ErrorTypes.hpp"
+#include "process_communications/TCPTransport.hpp"
 
 namespace {
 
-    using common::process_communications::error_types::TransportError;
-    using common::process_communications::tcp_transport::FdHandle;
-    using common::process_communications::tcp_transport::TcpTransport;
+    using lib::process_communications::error_types::TransportError;
+    using lib::process_communications::tcp_transport::FdHandle;
+    using lib::process_communications::tcp_transport::TcpTransport;
 
     auto make_bytes(std::string_view text) -> std::vector<std::byte> {
         std::vector<std::byte> out(text.size());

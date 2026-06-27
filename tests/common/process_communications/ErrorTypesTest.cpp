@@ -1,5 +1,5 @@
 //
-// Tests for common/process_communications/ErrorTypes.hpp
+// Tests for lib/process_communications/ErrorTypes.hpp
 //
 
 #include <cstdint>
@@ -7,11 +7,11 @@
 
 #include <gtest/gtest.h>
 
-#include "common/process_communications/ErrorTypes.hpp"
+#include "process_communications/ErrorTypes.hpp"
 
 namespace {
 
-    using common::process_communications::error_types::TransportError;
+    using lib::process_communications::error_types::TransportError;
 
     TEST(ErrorTypesTest, UnderlyingTypeIsUint8) {
         static_assert(

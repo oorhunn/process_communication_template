@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace common::process_communications::error_types {
+namespace lib::process_communications::error_types {
 
     enum class TransportError : std::uint8_t {
         PUBLISH_FAILED = 0,

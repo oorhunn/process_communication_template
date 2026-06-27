@@ -13,7 +13,7 @@
 
 #include "ErrorTypes.hpp"
 
-namespace common::process_communications::inproc_transport {
+namespace lib::process_communications::inproc_transport {
 
 
     struct InprocTransportConfig {
@@ -46,7 +46,7 @@ namespace common::process_communications::inproc_transport {
         [[nodiscard]] auto publish(
                 std::string_view key,
                 std::span<const std::byte> bytes) ->
-        std::expected<void, common::process_communications::error_types::TransportError> {
+        std::expected<void, lib::process_communications::error_types::TransportError> {
 
             const auto it{m_subscribers.find(std::string{key})};
             if (it != m_subscribers.end()) {

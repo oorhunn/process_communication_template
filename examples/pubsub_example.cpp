@@ -13,8 +13,8 @@
 #include <string_view>
 #include <vector>
 
-#include "common/process_communications/InprocTransport.hpp"
-#include "common/process_communications/TCPTransport.hpp"
+#include "process_communications/InprocTransport.hpp"
+#include "process_communications/TCPTransport.hpp"
 
 namespace {
 
@@ -34,8 +34,8 @@ namespace {
 
     // ---- In-process pub/sub (same address space, synchronous) --------------
     void inproc_example() {
-        using common::process_communications::inproc_transport::InprocTransport;
-        using common::process_communications::inproc_transport::InprocTransportConfig;
+        using lib::process_communications::inproc_transport::InprocTransport;
+        using lib::process_communications::inproc_transport::InprocTransportConfig;
 
         InprocTransport bus{InprocTransportConfig{}};
 
@@ -53,7 +53,7 @@ namespace {
 
     // ---- TCP pub/sub (cross-process; here both ends are in one program) -----
     void tcp_example() {
-        using common::process_communications::tcp_transport::TcpTransport;
+        using lib::process_communications::tcp_transport::TcpTransport;
 
         constexpr std::uint16_t port{9100U};
 
